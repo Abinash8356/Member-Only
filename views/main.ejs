@@ -1,0 +1,36 @@
+<% layout('layout') -%>
+   
+
+       
+
+    <% if (message_list.length !=0){ %>
+        <ul class="messages">
+            <% message_list.forEach( function(message){ %>
+                <li class="m-card">
+                    <div class="m-title"> <%= message.title %> </div>
+
+                    <div class=""><%=message.text%></div>
+                        <div class="m-bottom self-end">
+                        <% if (user && user.isMember) { %>
+                            <%=message.author.username%>
+                                <% } else { %>
+                                    Unknown
+                                    <% } %>
+                        </div>
+                                        <% if (user && user.isAdmin) { %>
+                                            <form action="/message_delete" method="post">
+                                                <input type="hidden" name="messageid" value="<%=message._id%>">
+                                                <input class="m-bottom delete" type="submit" value="Delete">
+                                            </form>
+                                            <% } %>
+
+                </li>
+                <%})%>
+        </ul>
+        <%}else{ %>
+            No message yet
+            <%} %>
+
+
+               
+               
